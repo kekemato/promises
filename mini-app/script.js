@@ -34,7 +34,11 @@ class ListView {
             .then(response => response.json())
             .then(data => {
                 const div = document.createElement('div')
-                div.innerText = 'ListView'
+                data.forEach(user => {
+                    const innerDiv = document.createElement('div')
+                    innerDiv.innerText = `${user.name} ${user.lastname}`
+                    div.appendChild(innerDiv)
+                })
                 return div
             })
 
