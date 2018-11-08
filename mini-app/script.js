@@ -9,7 +9,8 @@ class App {
     renderView(viewName) {
         switch (viewName) {
             case 'listView':
-                this.render(this.listView.render())
+                this.listView.render()
+                    .then(viewContent => this.render(viewContent))
                 break
             case 'userView':
                 this.render(this.userView.render())
@@ -29,9 +30,15 @@ class App {
 
 class ListView {
     render() {
-        const div = document.createElement('div')
-        div.innerText = 'ListView'
-        return div
+        const promise = fetch('./data/users.json')
+            .then(response => response.json())
+            .then(data => {
+                const div = document.createElement('div')
+                div.innerText = 'ListView'
+                return div
+            })
+
+        return promise
     }
 }
 
