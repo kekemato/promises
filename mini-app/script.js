@@ -4,6 +4,11 @@ class App {
         this.userView = new UserView()
         this.notFoundView = new NotFoundView()
 
+        this.init()
+    }
+
+    init(){
+        this.renderView('listView')
     }
 
     renderView(viewName, params) {
@@ -56,8 +61,16 @@ class UserView {
             .then(response => response.json())
             .then(data => {
                 const div = document.createElement('div')
+                const img = document.createElement('img')
+                const text = document.createElement('div')
+                const email = document.createElement('div')
+                text.innerText = `${data.name} ${data.lastname}`
+                img.setAttribute('src', `${data.avatar}`)
+                email.innerText = data.email
 
-                div.innerText = data.email
+                div.appendChild(text)
+                div.appendChild(img)
+                div.appendChild(email)
 
                 return div
             })
@@ -75,4 +88,3 @@ class NotFoundView {
 }
 
 const app = new App()
-app.renderView('listView')
